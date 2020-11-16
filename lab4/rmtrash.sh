@@ -6,6 +6,7 @@ then
 	exit 1
 fi
 
+
 name=$1
 numb=$(cat number)
 
