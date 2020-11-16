@@ -9,7 +9,6 @@ fi
 cd /home/andrew
 name=$1
 files=$(cat trash.log)
-echo "">trash.log
 for i in $files
 do
 	if [[ $i =~ "$name:" ]]
@@ -24,47 +23,53 @@ do
 			dir="$(echo $i | awk -F":" '{print $1}' | grep -o ".*/")"
 			dirname=$(echo $dir | rev | cut -c 2- | rev)
 			if [ -d $dirname ]
-			then
-				if [ -e $dir$1 ]
+			then	
+				if [ -e $filename ]
 				then
-					echo "file with this name is already exist, rename it?[Y/n]"
-					read secAns
-					if [ $secAns = "Y" ]
+					if [ -e $dir$1 ]
 					then
-						ln $filename "$dir$1$filename"
-						rm $filename
+						echo "file with this name is already exist, rename it?[Y/n]"
+						read secAns
+						if [ $secAns = "Y" ]
+						then
+							ln $filename "$dir$1$filename"
+							rm $filename
+						fi
 					else 
-						echo $i >>trash.log
+						ln $filename $dir$1
+						rm $filename
 					fi
-				else 
-					ln $filename $dir$1
-					rm $filename
+				else
+					echo "file was already untrashed"
 				fi
 			else 
-				cd /home/andrew
+				cd /home/andrew/.trash
 				echo "noDirectory"
-				if [ -e $1 ]
+				if [ -e $filename ]
 				then
-					echo "file with this name is already exist, rename it?[Y/n]"
-					read secAns
-					if [ $secAns = "Y" ]
+					cd /home/andrew
+					if [ -e $1 ]
 					then
-						ln $filename $1$filename
-						rm /home/andrew/.trash/$filename
+						echo "file with this name is already exist, rename it?[Y/n]"
+						read secAns
+						if [ $secAns = "Y" ]
+						then
+							ln /home/andrew/.trash/$filename $1$filename
+							rm /home/andrew/.trash/$filename
+							echo "file was untrashed in home catalog"
+						fi
 					else 
-						echo $i >>/home/andrew/trash.log
+						ln /home/andrew/.trash/$filename $1
+						rm /home/andrew/.trash/$filename
+						echo "file was untrashed in home catalog"
 					fi
-				else 
-					ln $filename $1
-					rm /home/andrew/.trash/$filename
+				else
+					echo "file was already untrashed"
 				fi
 			fi
-		fi
-	else
-		echo $i >>/home/andrew/trash.log	
+		fi	
 	fi
 done
-
 
 
 
