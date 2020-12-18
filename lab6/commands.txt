@@ -1,0 +1,56 @@
+1.1
+ver > ver.txt
+
+systeminfo | find "Memory" > systeminfo_find.txt
+
+diskpart /s list_disk.txt > diskpart
+
+1.2
+md TEST
+copy c:\LAB6 c:\LAB6\TEST
+cd test
+
+1.3
+type c:\LAB6\TEST\*.txt >> type
+
+1.4
+for %i in (*.*) do if %i NEQ type del %i
+
+2.1
+\\%computername%
+
+2.2(3)
+copynet:
+	@set filename=%1
+	@set time=%2
+	schtasks /Create /SC ONCE /TN copy /TR "xcopy /z /y %filename% \\%computername%\temp\new_file.txt" /ST %2% 
+
+2.4
+schtasks /Query | find "copy"
+schtasks /Delete /TN copy
+
+2.5
+fc %1 \\%computername%\temp\new_file.txt
+
+2.6
+copynet.cmd
+
+3.1
+net_start > net_start.txt
+
+3.2.1
+net stop dnscache
+
+3.2.2
+timeout /t 20 /nobreak & net start > timeout.txt
+
+3.2.3
+comp net_start.txt timeout.txt /a /l
+
+3.2.4
+net start dnscache
+
+4.1
+driverquery /fo table > driverquery.txt
+4.2
+sort /R drivers.txt /o sort.txt
