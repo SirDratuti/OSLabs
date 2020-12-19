@@ -1,9 +1,14 @@
 1.1
+
+md LAB6
+
 ver > ver.txt
 
 systeminfo | find "Memory" > systeminfo_find.txt
 
-diskpart /s list_disk.txt > diskpart
+echo list disl > list_disk.txt
+
+diskpart /s list_disk.txt > diskpart.txt
 
 1.2
 md TEST
