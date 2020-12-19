@@ -32,7 +32,8 @@ copynet:
 
 2.4
 schtasks /Query | find "copy"
-schtasks /Delete /TN copy
+tasklist | find "copy"
+taskkill /pid (%copypid%)
 
 2.5
 fc %1 \\%computername%\temp\new_file.txt
