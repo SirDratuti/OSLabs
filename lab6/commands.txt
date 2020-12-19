@@ -58,4 +58,4 @@ net start dnscache
 4.1
 driverquery /fo table > driverquery.txt
 4.2
-sort /R drivers.txt /o sort.txt
+sort /R driverquery.txt /o sort.txt
