@@ -41,7 +41,7 @@ fc %1 \\%computername%\temp\new_file.txt
 copynet.cmd
 
 3.1
-net_start > net_start.txt
+net start > net_start.txt
 
 3.2.1
 net stop dnscache
